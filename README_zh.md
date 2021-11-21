@@ -3,9 +3,13 @@
 这是一个用Node.js做的登录系统示例。
 
 # 构建
+如果你在中国境内，建义使用cnpm
+```
+npm install cnpm --global
+```
 1. 安装 typescript（如果你已经有，跳过这一步）
    ```
-   npm install typescript --global
+   (c)npm install typescript --global
    ```
-2. 执行`npm install`以安装所需的依赖
+2. 执行`(c)npm install`以安装所需的依赖
 3. 用`npm test`命令运行
