@@ -1,0 +1,15 @@
+# Databases
+*.db
+
+# modules
+node_modules/
+
+# dist
+*/dist
+
+# vscode
+.vscode/
+
+# built file
+index.js
+404/404.js

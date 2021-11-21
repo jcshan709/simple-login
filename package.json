@@ -1,0 +1,23 @@
+{
+  "name": "simple_login",
+  "version": "1.0.0",
+  "description": "A simple user login demo.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js",
+    "pretest": "npm run build",
+    "build": "tsc index.ts"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.13",
+    "@types/sqlite3": "^3.1.7",
+    "@types/string-format": "^2.0.0",
+    "chalk": "^4.1.2",
+    "express": "^4.17.1",
+    "qs": "^6.10.1",
+    "sqlite3": "^5.0.2",
+    "string-format": "^2.0.0"
+  },
+  "author": "sjc0910",
+  "license": "BSD-3-Clause"
+}
