@@ -9,3 +9,17 @@ A simple Node.js login system example.
    ```
 2. Run `npm install` to install dependencies.
 3. Run `npm test` to execute.
+
+# Config
+config.json
+```json
+{
+  "server": { // Host and port to listen on
+    "host": "0.0.0.0",
+    "port": 8080
+  },
+  "database": {
+    "outfile": ":memory:" // The file which to save database (":memory:" means save in memory)
+  }
+}
+```
