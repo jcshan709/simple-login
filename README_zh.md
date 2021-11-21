@@ -16,7 +16,7 @@ npm install cnpm --global
 
 # 配置
 config.json
-```json
+```jsonc
 {
   "server": { // 监听的主机ip和端口
     "host": "0.0.0.0",

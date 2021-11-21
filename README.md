@@ -12,7 +12,7 @@ A simple Node.js login system example.
 
 # Config
 config.json
-```json
+```jsonc
 {
   "server": { // Host and port to listen on
     "host": "0.0.0.0",
