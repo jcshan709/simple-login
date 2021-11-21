@@ -54,12 +54,27 @@ function mainloop(): void {
     console.log('Exited!');
     process.exit(0);
   });
-  replServer.defineCommand('readdb', {
-    help: "Read Database",
+  replServer.defineCommand('tojson', {
+    help: "Read database as JSON",
     action: () => {
       console.log(chalk`{yellow [NOTE]} All data was encrypted by sha256.`);
       userlist.all("SELECT * FROM userlist;", (err, row) => {
-        if (row != null) console.log(JSON.stringify(row));
+        if (row.length > 0) console.log(JSON.stringify(row));
+        else console.log(chalk.red("Empty!"));
+      });
+    }
+  });
+  replServer.defineCommand('readdb', {
+    help: "Read database",
+    action: () => {
+      console.log(chalk`{yellow [NOTE]} All data was encrypted by sha256.`);
+      userlist.all("SELECT * FROM userlist;", (err, row) => {
+        if (row.length > 0) {
+          row.forEach(user => {
+            console.log(`name: ${user.name}\npassword: ${user.password}`);
+            console.log('------------------------------');
+          });
+        }
         else console.log(chalk.red("Empty!"));
       });
     }
@@ -75,8 +90,9 @@ function mainloop(): void {
     help: "Run a SQL command",
     action: (command: string) => {
       userlist.all(command, (err, row) => {
-        if (err != null) console.log(`${err.name}\n${err.message}`);
-        else if (row != null) console.log(JSON.stringify(row));
+        if (err != null) { console.log(`${err.name}\n${err.message}`); return; }
+        else if (row.length > 0) console.log(JSON.stringify(row));
+        console.log(chalk`{greenBright Done!}`);
         return;
       })
     }
