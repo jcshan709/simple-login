@@ -27,8 +27,10 @@ app.get('/', (req, res) => {
 app.post('/', parser, (req, res) => {
   let name: string = req.body.name;
   let psw: string = req.body.psw;
-  name = crypto.createHash('sha256').update(name + name.length).digest('hex');
-  psw = crypto.createHash('sha256').update(psw + psw.length).digest('hex');
+  if (name.includes(' ')) { res.send("<h1 style='text-align: center'>Username format error!</h1>"); return; }
+  if (name.includes(' ')) { res.send("<h1 style='text-align: center'>Password format error!</h1>"); return; }
+  name = crypto.createHash('sha256').update(`${name}${name.length}`).digest('hex');
+  psw = crypto.createHash('sha256').update(`${psw}${psw.length}`).digest('hex');
   userlist.get(`SELECT * FROM userlist WHERE name=="${name}";`, (err: Error, row: any) => {
     if (row == null) {
       userlist.run(`INSERT INTO userlist (name,password) VALUES ("${name}","${psw}");`);
@@ -97,6 +99,21 @@ function mainloop(): void {
       })
     }
   });
+  replServer.defineCommand('adduser', {
+    help: "Add a user to database",
+    action: (param: string) => {
+      let res = param.split(' ');
+      if (res.length != 2) {
+        console.log(chalk`{redBright.bold [ERR]} {yellow .adduser} required 2 params, but provided ${res.length}`);
+        return;
+      }
+      let name = res[0], psw = res[1];
+      name = crypto.createHash('sha256').update(name + name.length).digest('hex');
+      psw = crypto.createHash('sha256').update(psw + psw.length).digest('hex');
+      userlist.run(`INSERT INTO userlist (name, password) VALUES ("${name}", "${psw}");`);
+      console.log(chalk`{greenBright Done!}`);
+    }
+  })
   replServer.displayPrompt();
 }
 
